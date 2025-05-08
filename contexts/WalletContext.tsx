@@ -9,7 +9,7 @@ import {
 } from "react";
 
 // Define supported wallet types
-type WalletType = "phantom" | "metamask" | "walletconnect" | "coinbase";
+type WalletType = "phantom" | "solflare" | "metamask" | "walletconnect" | "coinbase";
 
 interface WalletContextType {
   connected: boolean;
@@ -63,6 +63,20 @@ export function WalletProvider({ children }: WalletProviderProps) {
           }
 
           // Connect to Phantom
+          const response = await solana.connect();
+          connectedAddress = response.publicKey.toString();
+          break;
+        }
+
+        case "solflare": {
+          // Check if Solflare is installed
+          const { solana } = window as any;
+          if (!solana?.isSolflare) {
+            window.open("https://solflare.com/", "_blank");
+            throw new Error("Please install Solflare wallet");
+          }
+
+          // Connect to Solflare
           const response = await solana.connect();
           connectedAddress = response.publicKey.toString();
           break;

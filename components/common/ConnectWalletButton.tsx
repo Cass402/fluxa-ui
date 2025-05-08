@@ -26,6 +26,7 @@ declare global {
   interface Window {
     solana?: {
       isPhantom?: boolean;
+      isSolflare?: boolean;
       connect(): Promise<{ publicKey: { toString(): string } }>;
     };
     ethereum?: {
@@ -56,7 +57,7 @@ export default function ConnectWalletButton() {
     return addr ? `${addr.slice(0, 6)}...${addr.slice(-4)}` : "";
   };
 
-  const handleConnect = async (type: "phantom" | "metamask" | "walletconnect" | "coinbase") => {
+  const handleConnect = async (type: "phantom" | "solflare" | "metamask" | "walletconnect" | "coinbase") => {
     try {
       await connect(type);
       setShowConnectModal(false);
@@ -152,19 +153,9 @@ const walletOptions = [
     icon: <PhantomIcon />,
   },
   {
-    name: "MetaMask",
-    type: "metamask" as const,
-    icon: <MetaMaskIcon />,
-  },
-  {
-    name: "WalletConnect",
-    type: "walletconnect" as const,
-    icon: <WalletConnectIcon />,
-  },
-  {
-    name: "Coinbase Wallet",
-    type: "coinbase" as const,
-    icon: <CoinbaseWalletIcon />,
+    name: "Solflare",
+    type: "solflare" as const,
+    icon: <SolflareIcon />,
   },
 ];
 
@@ -175,6 +166,33 @@ function PhantomIcon() {
       <rect width="128" height="128" rx="64" fill="#AB9FF2"/>
       <path d="M110.584 64.9142C110.584 63.0419 109.059 61.5172 107.187 61.5172H89.8091C87.937 61.5172 86.4121 63.0419 86.4121 64.9142V82.2921C86.4121 84.1642 87.937 85.689 89.8091 85.689H107.187C109.059 85.689 110.584 84.1642 110.584 82.2921V64.9142Z" fill="white"/>
       <path fillRule="evenodd" clipRule="evenodd" d="M27.8502 47.0453C27.8502 44.0913 30.2412 41.7003 33.1952 41.7003H95.6642C98.6182 41.7003 101.009 44.0913 101.009 47.0453V83.3913C101.009 86.3453 98.6182 88.7363 95.6642 88.7363H33.1952C30.2412 88.7363 27.8502 86.3453 27.8502 83.3913V47.0453ZM39.7502 57.7363C39.7502 55.5273 41.5412 53.7363 43.7502 53.7363H85.1092C87.3182 53.7363 89.1092 55.5273 89.1092 57.7363V72.7003C89.1092 74.9093 87.3182 76.7003 85.1092 76.7003H43.7502C41.5412 76.7003 39.7502 74.9093 39.7502 72.7003V57.7363Z" fill="white"/>
+    </svg>
+  );
+}
+
+function SolflareIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z"
+        fill="#FF6D41"
+      />
+      <path
+        d="M16.2322 7H9.57747C9.12101 7 8.73227 7.38873 8.73227 7.8452C8.73227 8.30166 9.12101 8.6904 9.57747 8.6904H16.2322C16.6887 8.6904 17.0774 8.30166 17.0774 7.8452C17.0774 7.38873 16.6887 7 16.2322 7Z"
+        fill="white"
+      />
+      <path
+        d="M16.2322 10.4082H9.57747C9.12101 10.4082 8.73227 10.7969 8.73227 11.2534C8.73227 11.7098 9.12101 12.0986 9.57747 12.0986H16.2322C16.6887 12.0986 17.0774 11.7098 17.0774 11.2534C17.0774 10.7969 16.6887 10.4082 16.2322 10.4082Z"
+        fill="white"
+      />
+      <path
+        d="M15.126 13.8164H7.8452C7.38873 13.8164 7 14.2051 7 14.6616C7 15.1181 7.38873 15.5068 7.8452 15.5068H15.126C15.5825 15.5068 15.9712 15.1181 15.9712 14.6616C15.9712 14.2051 15.5825 13.8164 15.126 13.8164Z"
+        fill="white"
+      />
+      <path
+        d="M15.126 17.2247H7.8452C7.38873 17.2247 7 17.6134 7 18.0699C7 18.5263 7.38873 18.9151 7.8452 18.9151H15.126C15.5825 18.9151 15.9712 18.5263 15.9712 18.0699C15.9712 17.6134 15.5825 17.2247 15.126 17.2247Z"
+        fill="white"
+      />
     </svg>
   );
 }
